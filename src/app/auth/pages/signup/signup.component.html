@@ -1,0 +1,268 @@
+<mat-sidenav-container fullscreen class="bg">
+  <app-banner></app-banner>
+  <div fxLayout="row" class="titleContainer transp-container-title">
+    <h1>¡Regístrate ahora!</h1>
+  </div>
+  <div>
+    <form [formGroup]="signupForm" (ngSubmit)="createUser()">
+      <div class="titleContainer transp-container">
+        <div fxLayout="row" class="detailContainerTitle">
+          <div class="textcontainer">
+            <div class="content">
+              <h1>Campos obligatorios *</h1>
+            </div>
+          </div>
+        </div>
+
+        <hr style="width: 75%" />
+
+        <div
+          fxLayout="row"
+          fxLayout.xs="column"
+          fxLayout.md="column"
+          fxLayoutGap="40px"
+        >
+          <mat-form-field fxFlex="50" fxLayout.xs="column" fxLayout.md="column">
+            <mat-label> Nombre de Usuario: </mat-label>
+            <input
+              matInput
+              type="text"
+              required
+              class="form-control"
+              formControlName="username"
+              autocomplete="off"
+            />
+            <button
+              mat-button
+              *ngIf="signupForm.get('username')?.value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="signupForm.get('username')?.setValue('')"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-hint *ngIf="isFieldValid('username')" style="font-size: small; color: red;">{{usernameErrorMsg}}</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="50">
+            <mat-label> E-mail: </mat-label>
+            <input
+              matInput
+              type="text"
+              required
+              class="form-control"
+              formControlName="email"
+              autocomplete="off"
+            />
+            <button
+              mat-button
+              *ngIf="signupForm.get('email')?.value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="signupForm.get('email')?.setValue('')"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-hint *ngIf="isFieldValid('email')" style="font-size: small; color: red;">{{emailErrorMsg}}</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div
+          fxLayout="row"
+          fxLayout.xs="column"
+          fxLayout.md="column"
+          fxLayoutGap="40px"
+        >
+          <mat-form-field fxFlex="100" fxLayout.xs="column">
+            <mat-label> Contraseña: </mat-label>
+            <input
+              matInput
+              type="password"
+              required
+              class="form-control"
+              formControlName="password"
+              autocomplete="off"
+            />
+            <button
+              mat-button
+              *ngIf="signupForm.get('password')?.value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="signupForm.get('password')?.setValue('')"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-hint *ngIf="isFieldValid('password')" style="font-size: small; color: red;">{{pwdErrorMsg}}</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="100">
+            <mat-label> Confirmar Contraseña: </mat-label>
+            <input
+              matInput
+              type="password"
+              required
+              class="form-control"
+              formControlName="matchPassword"
+              autocomplete="off"
+            />
+            <button
+              mat-button
+              *ngIf="signupForm.get('matchPassword')?.value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="signupForm.get('matchPassword')?.setValue('')"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-hint *ngIf="isFieldValid('matchPassword')" style="font-size: small; color: red;">{{matchPwdErrorMsg}}</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="titleContainer transp-container">
+        <div fxLayout="row" class="detailContainerTitle">
+          <div class="textcontainer">
+            <div class="content">
+              <h1>Campos Opcionales</h1>
+            </div>
+          </div>
+        </div>
+
+        <hr style="width: 75%" />
+
+        <div
+          fxLayout="row"
+          fxLayout.xs="column"
+          fxLayout.md="column"
+          fxLayoutGap="40px"
+        >
+          <mat-form-field fxFlex="50" fxLayout.xs="column" fxLayout.md="column">
+            <mat-label> Nombre: </mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="name"
+              autocomplete="off"
+            />
+            <button
+              mat-button
+              *ngIf="signupForm.get('name')?.value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="signupForm.get('name')?.setValue('')"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="50">
+            <mat-label> Apellidos: </mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="surname"
+              autocomplete="off"
+            />
+            <button
+              mat-button
+              *ngIf="signupForm.get('surname')?.value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="signupForm.get('surname')?.setValue('')"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div
+          fxLayout="row"
+          fxLayout.xs="column"
+          fxLayout.md="column"
+          fxLayoutGap="40px"
+        >
+          <mat-form-field fxFlex="100" fxLayout.xs="column">
+            <mat-label> Edad: </mat-label>
+            <input
+              matInput
+              type="number"
+              class="form-control"
+              formControlName="age"
+              autocomplete="off"
+            />
+            <button
+              mat-button
+              *ngIf="signupForm.get('age')?.value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="signupForm.get('age')?.setValue('')"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="100">
+            <mat-label> Ciudad de Residencia: </mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="city"
+              autocomplete="off"
+            />
+            <button
+              mat-button
+              *ngIf="signupForm.get('city')?.value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="signupForm.get('city')?.setValue('')"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div
+          fxLayout="row"
+          fxLayout.xs="column"
+          fxLayout.md="column"
+          fxLayoutGap="40px"
+        >
+          <mat-form-field fxFlex="100" fxLayout.xs="column">
+            <mat-label> URL de Avatar: </mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              formControlName="userImg"
+              autocomplete="off"
+            />
+            <button
+              mat-button
+              *ngIf="signupForm.get('userImg')?.value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="signupForm.get('userImg')?.setValue('')"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="titleContainer">
+          <button mat-raised-button type="button" color="warn" style="margin: 20px; font-size: 25px; border: 2px solid black;" [routerLink]="['../..']">Volver al Inicio</button>
+          <button mat-raised-button type="submit" color="accent" style="margin: 20px; font-size: 25px; border: 2px solid black;">Registrarse</button>
+      </div>
+    </form>
+  </div>
+</mat-sidenav-container>

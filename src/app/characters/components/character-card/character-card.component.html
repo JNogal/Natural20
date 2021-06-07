@@ -1,0 +1,53 @@
+<mat-card>
+    <mat-card-header>
+        <img *ngIf="character.characterAvatar !== ''" mat-card-avatar [src]="character | avatar"/>
+        <div *ngIf="character.characterAvatar === ''"mat-card-avatar class="header-image"></div>
+        <mat-card-title class="charname">{{character.name}}</mat-card-title>
+        <mat-card-subtitle class="charage">{{character.age}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="character | image">
+    <mat-card-content>
+        <mat-card-title>{{character.race}}</mat-card-title>
+        <mat-card-subtitle>{{character.class}}</mat-card-subtitle>
+        <hr>
+        <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
+            <div fxLayout="row" fxLayoutGap="30px">
+                <div fxFlex="50">
+                    <strong>Fuerza: </strong>{{character.strength}}
+                </div>
+                <div fxFlex="50">
+                    <strong>Inteligencia: </strong>{{character.intelligence}}
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="30px">          
+                <div fxFlex="50">
+                    <strong>Destreza: </strong>{{character.dexterity}}
+                </div>
+                <div fxFlex="50">
+                    <strong>Carisma: </strong>{{character.charisma}}
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="30px">  
+                <div fxFlex="50">
+                    <strong>Constitución: </strong>{{character.constitution}}
+                </div>       
+                <div fxFlex="50">
+                    <strong>Sabiduría: </strong>{{character.wisdom}}
+                </div>
+            </div>
+        </div>
+        <hr>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-button color="warn" [routerLink]="['..', character.characterId]">
+            Leer Más
+        </button>
+        <button mat-button color="info" [routerLink]="['../../editcharacter', character.characterId]">
+            Editar
+        </button>
+        <a mat-button color="info" [routerLink]="['../..', character.userId, character.characterId, 'inventory']">
+            Inventario
+        </a>
+    </mat-card-actions>
+</mat-card>

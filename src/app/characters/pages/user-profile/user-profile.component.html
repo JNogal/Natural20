@@ -1,0 +1,90 @@
+
+<div class="bg">
+    <div class="profile-header">
+        <div class="profile-img">
+            <img src="{{user.userImg}}">
+        </div>
+        <h1>Bienvenido de nuevo {{user?.username }}</h1>
+        <h2>Siempre es un placer tenerte de vuelta!</h2>
+    </div>
+    <div class="profile-info">
+        <div class="info-mat">
+            <div *ngIf="!isEditing">
+                <h2 style="display: inline-block; width: 100px;">Nombre: </h2><h2 style="display: inline-block; width: 200px;">{{user?.name}}</h2>
+                <h2 style="display: inline-block; width: 100px; margin-left: 100px;">Apellidos: </h2><h2 style="display: inline-block; width: 200px;">{{user?.surname}}</h2>
+                <br>
+                <h2 style="display: inline-block; width: 100px;">E-mail: </h2><h2 style="display: inline-block; width: 200px;">{{user?.email}}</h2>
+                <br>
+                <h2 style="display: inline-block; width: 100px;">Edad: </h2><h2 style="display: inline-block; width: 200px;">{{user?.age}}</h2>
+                <h2 style="display: inline-block; width: 100px; margin-left: 100px;">Ciudad: </h2><h2 style="display: inline-block; width: 200px;">{{user?.city}}</h2>
+                <hr>
+                <h1>Biografía:</h1>
+                <p style="height: 155px;">{{user?.bio}}</p>
+            </div>
+            <form [formGroup]="settingsForm" (ngSubmit)="saveChanges()">
+                <div *ngIf="isEditing">
+                    <h2 style="display: inline-block; width: 100px;">Nombre: </h2><input matInput formControlName="name" style="width: 200px;" type="text">
+                    <h2 style="display: inline-block; width: 100px; margin-left: 100px;">Apellidos: </h2><input matInput formControlName="surname" style="width: 200px;" type="text">
+                    <br>
+                    <h2 style="display: inline-block; width: 100px;">E-mail: </h2><input matInput formControlName="email" style="width: 200px;" type="text">
+                    <h2 style="display: inline-block; width: 100px; margin-left: 100px;">Usuario: </h2><input matInput formControlName="username" style="width: 200px;" type="text">
+                    <br>
+                    <h2 style="display: inline-block; width: 100px;">Edad: </h2><input matInput formControlName="age" style="width: 200px;" type="text">
+                    <h2 style="display: inline-block; width: 100px; margin-left: 100px;">Ciudad: </h2><input matInput formControlName="city" style="width: 200px;" type="text">
+                    <hr>
+                        <h2 style="display: inline-block; width: 170px;">Avatar del perfil: </h2><input matInput formControlName="userImg" style="width: 200px;" type="text">
+                    <hr>
+                    <h1>Biografía:</h1>
+                    <div class="centered">
+                        <textarea style="margin: 10px; width: 90%; height: 80px;" matInput formControlName="bio" autocomplete="off" width="500px"></textarea>
+                    </div>
+                </div>
+                <hr>
+                <div class="centered">
+                    <button type="button" mat-raised-button color="primary" (click)="edit()">{{editText}} Perfil</button>
+                    <button type="button" mat-raised-button color="accent" *ngIf="isEditing" style="margin-left: 10px; margin-right: 10px;" (click)="deleteUser()">Borrar Usuario</button>
+                    <button type="submit" mat-raised-button color="accent" *ngIf="isEditing" style="margin-left: 10px;">Guardar Cambios</button>
+                </div>
+            </form>        
+        </div>
+    </div>
+    <div class="dice-thrower">
+        <div class="dice-mat">
+            <div class="centered" style="margin-top: 15px;">
+                <h1 style="font-size: 35px;">Lanzador de dados</h1>
+            </div>
+            <div class="d4">
+                <img id="d4" class="dice" src="../../../../assets/d4.png">
+            </div>
+            <div class="d4-resp">        
+                <h1 style="font-size: 50px;">{{d4Result}}</h1>
+            </div>
+            <div class="d6">
+                <img id="d6" class="dice" src="../../../../assets/d6.png">
+            </div>
+            <div class="d6-resp">        
+                <h1 style="font-size: 50px;">{{d6Result}}</h1>
+            </div>
+            <div class="d12">
+                <img id="d12" class="dice" src="../../../../assets/d12.png">
+            </div>
+            <div class="d12-resp">        
+                <h1 style="font-size: 50px;">{{d12Result}}</h1>
+            </div>
+            <div class="d20">
+                <img id="d20" class="dice" src="../../../../assets/dice20.png">
+            </div>
+            <div class="d20-resp">        
+                <h1 style="font-size: 50px;">{{d20Result}}</h1>
+            </div>
+            
+            <button mat-raised-button color="accent" class="d4-btn" (click)="throwD4()">Lanzar D4</button>
+            <button mat-raised-button color="accent" class="d6-btn" (click)="throwD6()">Lanzar D6</button>
+            <button mat-raised-button color="accent" class="d12-btn" (click)="throwD12()">Lanzar D12</button>
+            <button mat-raised-button color="accent" class="d20-btn" (click)="throwD20()">Lanzar D20</button>
+            <button mat-raised-button color="primary" class="dAll" (click)="throwAll()">Lanzar Todos</button>
+            
+        </div>
+    </div>
+</div>
+

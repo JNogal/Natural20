@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>¿Está seguro de que desea crear a {{charName}}?</h1>
+<mat-dialog-content class="mat-typography">
+<hr>
+</mat-dialog-content>
+
+<p>
+    Vas a crear un personaje
+</p>
+<div fxLayout>
+    <button mat-button (click)="cancel()">Cancelar</button>
+    <span class="spacer"></span>
+    <button mat-button (click)="create()" color="warn">Crear</button>
+</div>

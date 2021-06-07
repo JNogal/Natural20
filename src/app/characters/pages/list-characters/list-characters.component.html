@@ -1,0 +1,31 @@
+<button
+  color="primary"
+  style="float: right; width: 150px; height: 50px"
+  mat-raised-button
+  [routerLink]="['../addcharacter']"
+  style="float: right; transform: translateY(95%) translateX(-10%)"
+>+ Añadir Personaje</button>
+<br>
+<div class="detailContainer">
+  <h1>Listado de Personajes</h1>
+</div>
+
+<mat-divider></mat-divider>
+<br>
+
+<div class="detailContainer" *ngIf="characters.length === 0">
+  <h2>No tienes ningún personaje creado todavía, haz click<button color="accent" mat-button [routerLink]="['../addcharacter']">aquí</button> para crear tu primer personaje</h2>
+</div>
+
+<div fxLayout="row wrap"
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="20px">
+    <div fxFlex="18"
+         fxFlex.lg="18"
+         fxFlex.sm="30" 
+         fxFlex.md="30"
+         *ngFor="let character of characters">
+        <app-character-card [character]=character></app-character-card>
+    </div>
+</div>

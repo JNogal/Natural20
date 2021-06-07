@@ -1,0 +1,47 @@
+<div style="background: #4c4848" class="detailContainer">
+  <h1>
+  Inventario de: <strong>{{ character.name }}</strong>
+  </h1>
+</div>
+
+<mat-divider></mat-divider>
+<br />
+
+<div style="background: #4c4848" class="detailContainer">
+  <h1>Buscador de items:</h1>
+</div>
+
+<mat-divider></mat-divider>
+<br>
+
+<app-search-item [character]="character"></app-search-item>
+
+<button color="primary" style="float: right; transform: translateY(40%) translateX(-20%)" mat-raised-button [routerLink]="['additem']">+ Añadir Item
+</button>
+<div class="detailContainer">
+  <h1>Listado de items:</h1>
+</div>
+
+<mat-divider></mat-divider>
+<br>
+
+<div class="detailContainer" *ngIf="items!.length === 0">
+  <h2>No tienes ningún item creado todavía, haz click<a color="accent" mat-button [routerLink]="['additem']">aquí</a> para crear tu primer item</h2>
+</div>
+
+<div
+  fxLayout="row wrap"
+  fxLayout.xs="column"
+  fxLayoutAlign="center"
+  fxLayoutGap="20px"
+>
+  <div
+    fxFlex="18"
+    fxFlex.lg="18"
+    fxFlex.sm="30"
+    fxFlex.md="30"
+    *ngFor="let item of items"
+  >
+    <app-item-card [item]="item" [character]="character"></app-item-card>
+  </div>
+</div>

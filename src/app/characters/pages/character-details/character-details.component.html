@@ -1,0 +1,135 @@
+<mat-grid-list cols="1" *ngIf="!character; else divcharacter" style="background: #4c4848">
+    <mat-grid-tile>
+        <mat-spinner></mat-spinner>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<ng-template #divcharacter>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="30px">
+
+        <div fxFlex="30" class="detailContainerInfo" style="background: #4c4848">
+            <h1>Información personal:</h1>
+            <mat-divider></mat-divider>
+            <br>
+
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="40px">
+                <div fxFlex="50">
+                    <mat-label>
+                        <mat-icon>person</mat-icon> Nombre: {{character.name}}
+                    </mat-label>
+                </div>
+
+
+                <div fxFlex="50">
+                    <mat-label>
+                        <mat-icon>tag</mat-icon> Edad: {{character.age}}
+                    </mat-label>
+                </div>
+            </div>
+            <br><br>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="40px">
+                <div fxFlex="50">
+                    <mat-label>
+                        <mat-icon>groups</mat-icon> Raza: {{character.race}}
+                    </mat-label>
+                </div>
+                
+                
+                <div fxFlex="50">
+                    <mat-label>
+                        <mat-icon>star</mat-icon> Clase: {{character.class}}
+                    </mat-label>
+                </div>
+            </div>
+            <br><br>
+            <mat-divider></mat-divider>
+            <br><br>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="40px">
+                <div fxFlex="50">
+                    <mat-label>
+                        <mat-icon>star_border</mat-icon> Subclase: {{character.subclass}}
+                    </mat-label>
+                </div>
+
+
+                <div fxFlex="50">
+                    <mat-label>
+                        <mat-icon>portrait</mat-icon> Alias: {{character.alias}}
+                    </mat-label>
+                </div>
+            </div>
+            <br><br>
+            <mat-divider></mat-divider>
+            <br><br>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="40px"><div fxFlex="100">
+                    <mat-label>
+                        <mat-icon>history_edu</mat-icon> Historia: <br><br>{{character.description}}
+                    </mat-label>
+                </div>
+            </div>
+        </div>
+
+        <div fxFlex="40" class="detailContainer" style="background: #4c4848">
+            <h1>Apariencia del personaje:</h1>
+            <mat-divider></mat-divider>
+            
+            <img [src]="character | image">
+            <br>
+            <mat-divider></mat-divider>
+            
+            <button mat-raised-button color="warn" [routerLink]="['..', 'listcharacters']">
+                Regresar
+            </button>
+            <button mat-raised-button color="accent" [routerLink]="['inventory']">
+                Inventario
+            </button>
+            <button mat-raised-button color="primary" [routerLink]="['../..', 'editcharacter', character.characterId ]">
+                Editar
+            </button>
+        </div>
+
+        <div fxFlex="30" class="detailContainerStats" style="background: #4c4848">
+            <h1>Estadísticas:</h1>
+            <mat-divider></mat-divider>
+            <mat-grid-list cols="2" rowHeight="110px">
+                <mat-grid-tile>
+                    <mat-grid-tile-header>Fuerza</mat-grid-tile-header>
+                    <mat-grid-tile-footer>{{character.strength}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-grid-tile-header>Destreza</mat-grid-tile-header>
+                    <mat-grid-tile-footer>{{character.dexterity}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-grid-tile-header>Constitución</mat-grid-tile-header>
+                    <mat-grid-tile-footer>{{character.constitution}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-grid-tile-header>Inteligencia</mat-grid-tile-header>
+                    <mat-grid-tile-footer>{{character.intelligence}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-grid-tile-header>Carisma</mat-grid-tile-header>
+                    <mat-grid-tile-footer>{{character.charisma}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-grid-tile-header>Sabiduría</mat-grid-tile-header>
+                    <mat-grid-tile-footer>{{character.wisdom}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+            <mat-divider></mat-divider><br>
+
+            <h1>Habilidades:</h1>
+
+            <ul>
+                <li *ngFor="let abbility of character.abbilities">{{abbility}}</li>
+            </ul>
+            
+        </div>
+
+    </div>
+
+</ng-template>

@@ -1,0 +1,374 @@
+<div fxLayout="row" class="detailContainer" style="background: #4c4848">
+  <h1 class="margtoptitle">
+    {{ action }} Item: <strong>{{ itemForm.get("itemName")?.value }}</strong>
+  </h1>
+  <span class="spacer"></span>
+
+  <div class="textcontainerId">
+    <div class="content">
+      <h2>ID: {{ item.itemId }}</h2>
+    </div>
+  </div>
+</div>
+<hr />
+<div
+  fxLayout="row"
+  fxLayoutGap="40px"
+  fxLayout.xs="column"
+  class="detailContainer"
+  style="background: #4c4848"
+>
+  <form [formGroup]="itemForm" (ngSubmit)="saveItem()">
+    <div
+      class="input-container"
+      fxFlexOffset="10"
+      fxFlex="100"
+      fxLayout="column"
+    >
+      <div
+        class="input-container"
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutGap="40px"
+      >
+        <mat-form-field fxFlex="100" fxLayout.xs="column">
+          <mat-label><mat-icon>account_circle</mat-icon> Nombre: </mat-label>
+          <input
+            matInput
+            type="text"
+            required
+            formControlName="itemName"
+            autocomplete="off"
+          />
+          <button
+            mat-button
+            *ngIf="itemForm.get('itemName')?.value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="itemForm.get('itemName')?.setValue('')"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-hint *ngIf="isFieldValid('itemName')" style="font-size: small; color: #8B0000;">{{nameErrorMsg}}</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label
+            ><mat-icon>format_list_numbered</mat-icon> Tipo:
+          </mat-label>
+          <mat-select formControlName="itemType">
+            <mat-option value="Arma">Arma</mat-option>
+            <mat-option value="Escudo">Escudo</mat-option>
+            <mat-option value="Armadura">Armadura</mat-option>
+            <mat-option value="Consumible">Consumible</mat-option>
+            <mat-option value="Objecto de mision">Objecto de mision</mat-option>
+          </mat-select>
+          <mat-hint *ngIf="isFieldValid('itemType')" style="font-size: small; color: #8B0000;">Debes elegir el tipo de item</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div
+        class="input-container"
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutGap="40px"
+      >
+        <mat-form-field fxFlex="100">
+          <mat-label><mat-icon>monetization_on</mat-icon> Precio: </mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="itemPrice"
+            autocomplete="off"
+          />
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="
+              itemForm
+                .get('itemPrice')
+                ?.setValue(itemForm.get('itemPrice')?.value + 1)
+            "
+            type="button"
+          >
+            <mat-icon>expand_less</mat-icon>
+          </button>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="
+              itemForm
+                .get('itemPrice')
+                ?.setValue(itemForm.get('itemPrice')?.value - 1)
+            "
+            type="button"
+          >
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <mat-hint *ngIf="isFieldValid('itemPrice')" style="font-size: small; color: #8B0000;">{{priceErrorMsg}}</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="100" fxLayout.xs="column">
+          <mat-label><mat-icon>backpack</mat-icon> Peso: </mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="itemWeight"
+            autocomplete="off"
+          />
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="
+              itemForm
+                .get('itemWeight')
+                ?.setValue(itemForm.get('itemWeight')?.value + 1)
+            "
+            type="button"
+          >
+            <mat-icon>expand_less</mat-icon>
+          </button>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="
+              itemForm
+                .get('itemWeight')
+                ?.setValue(itemForm.get('itemWeight')?.value - 1)
+            "
+            type="button"
+          >
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <mat-hint *ngIf="isFieldValid('itemWeight')" style="font-size: small; color: #8B0000;">{{weightErrorMsg}}</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="100">
+          <mat-label
+            ><mat-icon>looks_one</mat-icon><mat-icon>looks_two</mat-icon
+            ><mat-icon>looks_3</mat-icon> Cantidad:
+          </mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="itemQtty"
+            autocomplete="off"
+          />
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="
+              itemForm
+                .get('itemQtty')
+                ?.setValue(itemForm.get('itemQtty')?.value + 1)
+            "
+            type="button"
+          >
+            <mat-icon>expand_less</mat-icon>
+          </button>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="
+              itemForm
+                .get('itemQtty')
+                ?.setValue(itemForm.get('itemQtty')?.value - 1)
+            "
+            type="button"
+          >
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <mat-hint *ngIf="isFieldValid('itemQtty')" style="font-size: small; color: #8B0000;">La cantidad no puede ser menor a 0</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div
+        class="input-container"
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutGap="40px"
+      >
+        <mat-form-field fxFlex="100" fxLayout.xs="column">
+          <mat-label
+            ><mat-icon>format_list_numbered</mat-icon> Durabilidad:
+          </mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="itemDur"
+            autocomplete="off"
+          />
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="
+              itemForm
+                .get('itemDur')
+                ?.setValue(itemForm.get('itemDur')?.value + 1)
+            "
+            type="button"
+          >
+            <mat-icon>expand_less</mat-icon>
+          </button>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="
+              itemForm
+                .get('itemDur')
+                ?.setValue(itemForm.get('itemDur')?.value - 1)
+            "
+            type="button"
+          >
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <mat-hint *ngIf="isFieldValid('itemDur')" style="font-size: small; color: #8B0000;">La durabilidad no puede ser menor a 0</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="100" fxLayout.xs="column">
+          <mat-label><mat-icon>account_circle</mat-icon> Usos: </mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="itemUses"
+            autocomplete="off"
+          />
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="
+              itemForm
+                .get('itemUses')
+                ?.setValue(itemForm.get('itemUses')?.value + 1)
+            "
+            type="button"
+          >
+            <mat-icon>expand_less</mat-icon>
+          </button>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="
+              itemForm
+                .get('itemUses')
+                ?.setValue(itemForm.get('itemUses')?.value - 1)
+            "
+            type="button"
+          >
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <mat-hint *ngIf="isFieldValid('itemUses')" style="font-size: small; color: #8B0000;">Los usos no pueden ser menor a 0</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div
+        class="input-container"
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutGap="40px"
+      >
+        <mat-form-field appearance="fill" fxFill>
+          <mat-label> <mat-icon>edit</mat-icon> Descripción </mat-label>
+          <textarea
+            matInput
+            formControlName="itemDesc"
+            autocomplete="off"
+            width="500px"
+          ></textarea>
+          <button
+            mat-button
+            *ngIf="itemForm.get('itemDesc')?.value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="itemForm.get('itemDesc')?.setValue('')"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-hint *ngIf="isFieldValid('itemDesc')" style="font-size: small; color: #8B0000;">{{descErrorMsg}}</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field fxFlex="100">
+        <mat-label><mat-icon>image</mat-icon> URL de Imagen: </mat-label>
+        <input
+          matInput
+          type="url"
+          formControlName="itemImg"
+          autocomplete="off"
+        />
+        <button
+          mat-button
+          *ngIf="itemForm.get('itemImg')?.value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="itemForm.get('itemImg')?.setValue('')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <br />
+
+      <div fxLayout>
+        <button mat-raised-button color="primary" type="submit">
+          <mat-icon *ngIf="action2 === 'Actualizar'">update</mat-icon>
+          <mat-icon *ngIf="action2 === 'Crear'">save</mat-icon>
+          {{ action2 }}
+        </button>
+        <span class="spacer"></span>
+        <button mat-raised-button color="primary" style="margin-right: 10px;" [routerLink]="['..']" *ngIf="isAddItem()" type="button">
+            <mat-icon>keyboard_return</mat-icon>
+            Volver
+        </button>
+        <span class="spacer"></span>
+        <button mat-raised-button color="primary" style="margin-right: 10px;" [routerLink]="['../..']" *ngIf="!isAddItem()" type="button">
+            <mat-icon>keyboard_return</mat-icon>
+            Volver
+        </button>
+        <span class="spacer"></span>
+        <button
+          type="button"
+          mat-raised-button
+          color="warn"
+          (click)="deleteItem()"
+          *ngIf="item.itemId"
+        >
+          <mat-icon>delete</mat-icon>
+          Borrar
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div style="margin: 50px;" fxFlexOffset="10">
+    <div fxFlex="50" *ngIf="!item.itemId">
+      <img [src]="itemForm.get('itemImg')?.value | itemimg" />
+    </div>
+    <div fxFlex="50" *ngIf="item.itemId">
+      <img [src]="item | itemimg" />
+    </div>
+  </div>
+</div>

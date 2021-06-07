@@ -1,0 +1,15 @@
+<h1 *ngIf="item?.name !== ''" mat-dialog-title>¿Está seguro de que desea borrar a {{item?.name}}?</h1>
+<mat-dialog-content class="mat-typography">
+<hr>
+</mat-dialog-content>
+
+<p>
+    Si borras este item, perderás toda su información y
+    no podrás recuperarla. Si aún deseas continuar, pulse en
+    el botón de "Borrar", en caso contrario seleccione "Cancelar".
+</p>
+<div fxLayout>
+    <button mat-button (click)="cancel()">Cancelar</button>
+    <span class="spacer"></span>
+    <button mat-button (click)="delete()" color="warn">Borrar</button>
+</div>

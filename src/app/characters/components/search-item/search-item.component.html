@@ -1,0 +1,40 @@
+<div fxLayot="column">
+  <div class="row">
+    <form class="autocomplete-form">
+    <mat-form-field class="enable-full-width" style="background: #4c4848; border-radius: 5px; border: 4px solid black;">
+      <mat-label>Nombre</mat-label>
+      <input
+        type="text"
+        placeholder="Pick one"
+        aria-label="Number"
+        matInput
+        [formControl]="searchInput"
+        [matAutocomplete]="auto"
+        (input)="search()"
+      />
+      <mat-autocomplete
+        autoActiveFirstOption
+        #auto="matAutocomplete"
+        [displayWith]="checkValue"
+        (optionSelected)="selectedOption($event)"
+      >
+        <mat-option *ngFor="let item of items" [value]="item">
+          {{ item.name }}
+        </mat-option>
+        <!-- <mat-option *ngIf="items.length === 0 && myControl.value.trim().length>0" value="">
+                ERROR 404 - No se encontró nada con el término "{{myControl.value}}"
+              </mat-option> -->
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  </div>
+  </div>
+  <br />
+  <div>
+  <div *ngIf="selectedItem" class="row imgbox" fxFlexOffset="40">
+    <app-item-card
+      [item]="selectedItem"
+      [character]="character"
+    ></app-item-card>
+  </div>
+</div>

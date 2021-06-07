@@ -1,0 +1,68 @@
+<mat-sidenav-container fullscreen class="bg">
+
+    <mat-sidenav #sidenav mode="push">
+        <mat-toolbar color="primary">
+            <span>Menú</span>
+            <span class="spacer"></span>
+            <button mat-icon-button
+                    (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </mat-toolbar>
+        <mat-nav-list>
+            <a [routerLink]="['..']" (click)="sidenav.toggle()" *ngIf="!isHome" mat-list-item>
+                <mat-icon mat-list-icon>manage_accounts</mat-icon>
+                <span>Perfil</span>
+            </a>
+            <a routerLink="{{id}}/listcharacters"
+               (click)="sidenav.toggle()"
+               *ngIf="!isHome"
+               mat-list-item>
+               <mat-icon mat-list-icon>notes</mat-icon>
+               <span>Listado de Personajes</span>
+            </a>
+            <a routerLink="{{id}}/addcharacter" (click)="sidenav.toggle()" *ngIf="!isHome" mat-list-item>
+                <mat-icon mat-list-icon>add</mat-icon>
+                <span>Crear Personaje</span>
+            </a>
+            <a [routerLink]="[user?.id ,'search']" (click)="sidenav.toggle()" *ngIf="!isHome" mat-list-item>
+                <mat-icon mat-list-icon>search</mat-icon>
+                <span>Buscar Personaje</span>
+            </a>
+            <a routerLink="characters/{{id}}/listcharacters"
+               (click)="sidenav.toggle()"
+               mat-list-item
+               *ngIf="isHome">
+               <mat-icon mat-list-icon>notes</mat-icon>
+               <span>Listado de Personajes</span>
+            </a>
+            <a routerLink="characters/{{id}}/addcharacter" (click)="sidenav.toggle()" *ngIf="isHome" mat-list-item>
+                <mat-icon mat-list-icon>add</mat-icon>
+                <span>Crear Personaje</span>
+            </a>
+            <a [routerLink]="['characters', user?.id ,'search']" (click)="sidenav.toggle()" *ngIf="isHome" mat-list-item>
+                <mat-icon mat-list-icon>search</mat-icon>
+                <span>Buscar Personaje</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-toolbar color="primary">
+        <button mat-icon-button
+                (click)="sidenav.toggle()"> 
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span class="spacer"></span>
+        <span>{{user?.username}}</span>
+        <button mat-button (click)="logout()">
+            Log-out
+        </button>
+    </mat-toolbar>
+
+    <app-user-profile [user]="user" *ngIf="isHome"></app-user-profile>
+
+    <div class="container">
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+    </div>
+    
+</mat-sidenav-container>

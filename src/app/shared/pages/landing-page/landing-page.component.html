@@ -1,0 +1,86 @@
+<mat-sidenav-container fullscreen class="bg">
+  <app-banner></app-banner>
+  <br />
+  <div fxLayout="row" class="titleContainer">
+    <h1 class="supertext">¡Bienvenido a Natural20!</h1>
+
+    <div class="inner-container">
+      <div class="introbg">
+        <p class="centered">
+          Te doy la bienvenida a Natural20, tu gestor de personajes y partidas
+          de rol, donde podrás almacenar cientos de personajes, para que tengas
+          todo el control sobre ellos. <br><br> ¡Crea, edita, y aumenta tu colección en
+          cualquier momento!
+        </p>
+      </div>
+      <br><br>
+      <div class="purpbg">
+        <p class="centered">
+          Lo primero que deberás hacer es registrarte en nuestra aplicación.
+          Para ello, haz click
+        </p>
+        <button
+          mat-raised-button
+          color="primary"
+          class="signupbutton"
+          [routerLink]="['auth/signup']"
+        >
+          AQUÍ
+        </button>
+      </div>
+      <br /><br />
+      <div class="greenbg">
+        <p class="centered">¿Ya tienes una cuenta?</p>
+        <p>En ese caso, haz click</p>
+        <button
+          mat-raised-button
+          color="accent"
+          class="signupbutton"
+          (click)="openLoginPopup()"
+        >
+          AQUÍ
+        </button>
+        <p>para iniciar sesión.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="titleContainer transp-container">
+    <h1>¿Y qué puedo realizar en la web?</h1>
+    <mat-icon style="font-size: 50px; margin-right: 15px">expand_more</mat-icon>
+  </div>
+
+  <!-- Slideshow container -->
+  <div class="slideshow-container">
+    <!-- Full-width images with number and caption text -->
+    <div class="mySlides fade">
+      <img src="../../../../assets/characters-list.png" style="width: 100%" />
+    </div>
+
+    <div class="mySlides fade">
+      <img src="../../../../assets/character-details.png" style="width: 100%" />
+    </div>
+
+    <div class="mySlides fade">
+      <img src="../../../../assets/items-list.png" style="width: 100%" />
+    </div>
+
+    <div class="mySlides fade">
+      <img src="../../../../assets/item-details.png" style="width: 100%" />
+    </div>
+
+    <!-- Next and previous buttons -->
+    <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+    <a class="next" (click)="plusSlides(1)">&#10095;</a>
+  </div>
+
+  <br />
+
+  <!-- The dots/circles -->
+  <div style="text-align: center">
+    <span class="dot" (click)="currentSlide(1)"></span>
+    <span class="dot" (click)="currentSlide(2)"></span>
+    <span class="dot" (click)="currentSlide(3)"></span>
+    <span class="dot" (click)="currentSlide(4)"></span>
+  </div>
+</mat-sidenav-container>

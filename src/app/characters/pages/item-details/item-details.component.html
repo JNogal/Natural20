@@ -1,0 +1,78 @@
+
+<div fxLayout="row" class="detailContainer">
+    <h1>Detalles de item: <strong>{{item.name}}</strong></h1>
+    <span class="spacer"></span>
+
+    <div class="textcontainerId">
+       <div class="content">
+           <h2>ID: {{item.itemId}}</h2>
+       </div>
+    </div>
+</div>
+<hr>
+<div class="top"></div>
+<mat-grid-list cols="1" *ngIf="item.itemId === undefined; else divitem">
+    <mat-grid-tile>
+        <mat-spinner></mat-spinner>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<ng-template #divitem>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="30px">
+
+        <div fxFlex="50" class="detailContainerStats">
+            <h1>Descripción:</h1>
+            <mat-divider></mat-divider>
+            <br>
+            <p>{{item.description}}</p>
+
+            <mat-divider></mat-divider>
+            <br>
+            <h1>Estadísticas:</h1>
+            <mat-divider></mat-divider>
+            <br>
+            <mat-grid-list cols="3" rowHeight="110px">
+                <mat-grid-tile>
+                    <mat-grid-tile-header>Precio</mat-grid-tile-header>
+                    <mat-grid-tile-footer>{{item.price}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-grid-tile-header>Cantidad</mat-grid-tile-header>
+                    <mat-grid-tile-footer>{{item.quantity}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-grid-tile-header>Peso</mat-grid-tile-header>
+                    <mat-grid-tile-footer>{{item.weight}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-grid-tile-header *ngIf="item.uses">Usos</mat-grid-tile-header>
+                    <mat-grid-tile-footer *ngIf="item.uses">{{item.uses}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-grid-tile-header *ngIf="item.durability">Durabilidad</mat-grid-tile-header>
+                    <mat-grid-tile-footer *ngIf="item.durability">{{item.durability}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-grid-tile-header *ngIf="item.totalWeight">Peso total</mat-grid-tile-header>
+                    <mat-grid-tile-footer *ngIf="item.totalWeight">{{item.totalWeight}}</mat-grid-tile-footer>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+
+        <div fxFlex="50" class="detailContainer">
+            <h1><small>- {{item.type}} -</small></h1>
+            <mat-divider></mat-divider>
+            <br>
+            <img [src]="item | itemimg">
+            <mat-divider></mat-divider>
+            <a mat-raised-button color="warn" [routerLink]="['../..']">
+                Regresar
+            </a>
+            <button mat-raised-button color="primary" [routerLink]="['../..', item.itemId, 'edit']">
+                Editar
+            </button>
+        </div>
+    </div>
+
+</ng-template>

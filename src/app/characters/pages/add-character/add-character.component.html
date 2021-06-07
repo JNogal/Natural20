@@ -1,0 +1,292 @@
+<div fxLayout="row" class="detailContainer">
+    <h1 class="margtoptitle">{{action}} Personaje: <strong>{{characterForm.get('charName')?.value}}</strong></h1>
+    <span class="spacer"></span>
+    <div class="textcontainerId" *ngIf="!isAddCharacter()">
+        <div class="content">
+            <h2>ID: {{charId}}</h2>
+        </div>
+    </div>
+</div>
+<hr>
+<div fxLayout="row" fxLayoutGap="40px" fxLayout.xs="column" fxLayout.md="column" class="detailContainer">
+
+    <form [formGroup]="characterForm" autocomplete="off" (ngSubmit)="saveCharacter()">
+        <div fxFlex="100" fxLayout="column">
+
+            <div fxLayout="row" class="detailContainerTitle">
+                <div class="textcontainer">
+                    <div class="content">
+                        <h2>Campos obligatorios</h2>
+                    </div>
+                </div>
+            </div>
+
+            <mat-divider style="margin-top: 10px; margin-bottom: 20px;"></mat-divider>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.md="column" fxLayoutGap="40px">
+                <mat-form-field fxFlex="50" fxLayout.xs="column" fxLayout.md="column">
+                    <mat-label>
+                        <mat-icon>person</mat-icon> Nombre:
+                    </mat-label>
+                    <input matInput type="text" required class="form-control" formControlName="charName" autocomplete="off">
+                    <button type="button" mat-button *ngIf="fieldHasValue('charName')" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charName')?.setValue('')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-hint *ngIf="isFieldValid('charName')" style="font-size: small; color: #8B0000;">{{nameErrorMsg}}</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="50">
+                    <mat-label>
+                        <mat-icon>tag</mat-icon> Edad:
+                    </mat-label>
+                    <input matInput type="number" required class="form-control" formControlName="charAge" autocomplete="off">
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charAge')?.setValue(characterForm.get('charAge')?.value+1)">
+                        <mat-icon>expand_less</mat-icon>
+                    </button>
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charAge')?.setValue(characterForm.get('charAge')?.value-1)">
+                        <mat-icon>expand_more</mat-icon>
+                    </button>
+                    <mat-hint *ngIf="isFieldValid('charAge')" style="font-size: small; color: #8B0000;">{{ageErrorMsg}}</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.md="column" fxLayoutGap="40px">
+                <mat-form-field fxFlex="100" fxLayout.xs="column">
+                    <mat-label>
+                        <mat-icon>groups</mat-icon> Raza:
+                    </mat-label>
+                    <input matInput type="text" required class="form-control" formControlName="charRace" autocomplete="off">
+                    <button type="button" mat-button *ngIf="fieldHasValue('charRace')" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charRace')?.setValue('')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-hint *ngIf="isFieldValid('charRace')" style="font-size: small; color: #8B0000;">{{raceErrorMsg}}</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100">
+                    <mat-label>
+                        <mat-icon>star</mat-icon> Clase:
+                    </mat-label>
+                    <input matInput type="text" required class="form-control" formControlName="charClass" autocomplete="off">
+                    <button type="button" mat-button *ngIf="fieldHasValue('charClass')" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charClass')?.setValue('')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-hint *ngIf="isFieldValid('charClass')" style="font-size: small; color: #8B0000;">{{classErrorMsg}}</mat-hint>
+                </mat-form-field>
+            </div><br>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.md="column" fxLayoutGap="40px">
+                <mat-form-field appearance="fill" style="width: 800px; padding-left: 80px;">
+                    <mat-label>
+                        <mat-icon>history_edu</mat-icon> Descripción:
+                    </mat-label>
+                    <textarea matInput class="form-control" formControlName="charDesc" autocomplete="off" width="500px"></textarea>
+                    <button type="button" mat-button *ngIf="fieldHasValue('charDesc')" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charDesc')?.setValue('')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.md="column" fxLayoutGap="40px">
+                <mat-form-field fxFlex="100" fxLayout.xs="column">
+                    <mat-label><i class="fas fa-fist-raised"></i> Fuerza: </mat-label>
+                    <input matInput type="number" required class="form-control" formControlName="charStr" autocomplete="off">
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charStr')?.setValue(characterForm.get('charStr')?.value+1)">
+                        <mat-icon>expand_less</mat-icon>
+                    </button>
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charStr')?.setValue(characterForm.get('charStr')?.value-1)">
+                        <mat-icon>expand_more</mat-icon>
+                    </button>
+                    <mat-hint *ngIf="isFieldValid('charStr')" style="font-size: small; color: red;">La fuerza debe tener un valor.</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100">
+                    <mat-label><i class="fas fa-shield-alt"></i> Destreza: </mat-label>
+                    <input matInput type="number" required class="form-control" formControlName="charDex" autocomplete="off">
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charDex')?.setValue(characterForm.get('charDex')?.value+1)">
+                        <mat-icon>expand_less</mat-icon>
+                    </button>
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charDex')?.setValue(characterForm.get('charDex')?.value-1)">
+                        <mat-icon>expand_more</mat-icon>
+                    </button>
+                    <mat-hint *ngIf="isFieldValid('charDex')" style="font-size: small; color: red;">La destreza debe tener un valor.</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100" fxLayout.xs="column">
+                    <mat-label><i class="icon-constitution"></i> Constitución: </mat-label>
+                    <input matInput type="number" required class="form-control" formControlName="charConst" autocomplete="off">
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charConst')?.setValue(characterForm.get('charConst')?.value+1)">
+                        <mat-icon>expand_less</mat-icon>
+                    </button>
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charConst')?.setValue(characterForm.get('charConst')?.value-1)">
+                        <mat-icon>expand_more</mat-icon>
+                    </button>
+                    <mat-hint *ngIf="isFieldValid('charConst')" style="font-size: small; color: red;">La constitución debe tener un valor.</mat-hint>
+                </mat-form-field>
+            </div><br>
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.md="column" fxLayoutGap="40px">
+                <mat-form-field fxFlex="100" fxLayout.xs="column">
+                    <mat-label><i class="icon-intelligence"></i> Inteligencia: </mat-label>
+                    <input matInput type="number" required class="form-control" formControlName="charIntel" autocomplete="off">
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charIntel')?.setValue(characterForm.get('charIntel')?.value+1)">
+                        <mat-icon>expand_less</mat-icon>
+                    </button>
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charIntel')?.setValue(characterForm.get('charIntel')?.value-1)">
+                        <mat-icon>expand_more</mat-icon>
+                    </button>
+                    <mat-hint *ngIf="isFieldValid('charIntel')" style="font-size: small; color: red;">La inteligencia debe tener un valor.</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100">
+                    <mat-label><i class="icon-charisma"></i> Carisma: </mat-label>
+                    <input matInput type="number" required class="form-control" formControlName="charChar" autocomplete="off">
+                    <button type="button" type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charChar')?.setValue(characterForm.get('charChar')?.value+1)">
+                        <mat-icon>expand_less</mat-icon>
+                    </button>
+                    <button type="button" type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charChar')?.setValue(characterForm.get('charChar')?.value-1)">
+                        <mat-icon>expand_more</mat-icon>
+                    </button>
+                    <mat-hint *ngIf="isFieldValid('charChar')" style="font-size: small; color: red;">El carisma debe tener un valor.</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100" fxLayout.xs="column">
+                    <mat-label><i class="icon-wisdom"></i> Sabiduría: </mat-label>
+                    <input matInput type="number" required class="form-control" formControlName="charWis" autocomplete="off">
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charWis')?.setValue(characterForm.get('charWis')?.value+1)">
+                        <mat-icon>expand_less</mat-icon>
+                    </button>
+                    <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charWis')?.setValue(characterForm.get('charWis')?.value-1)">
+                        <mat-icon>expand_more</mat-icon>
+                    </button>
+                    <mat-hint *ngIf="isFieldValid('charWis')" style="font-size: small; color: red;">La sabiduría debe tener un valor.</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" class="detailContainerTitle">
+                <div class="textcontainer">
+                    <div class="content">
+                        <h2>Campos opcionales</h2>
+                    </div>
+                </div>
+            </div>
+            
+            <mat-divider style="margin-top: 10px; margin-bottom: 20px;"></mat-divider>
+            
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.md="column" fxLayoutGap="40px">
+                <mat-form-field fxFlex="100" fxLayout.xs="column">
+                    <mat-label>
+                        <mat-icon>star_border</mat-icon> Subclase:
+                    </mat-label>
+                    <input matInput type="text" class="form-control" formControlName="charSubclass" autocomplete="off">
+                    <button mat-button *ngIf="fieldHasValue('charSubclass')" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charSubclass')?.setValue('')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100">
+                    <mat-label>
+                        <mat-icon>portrait</mat-icon> Alias:
+                    </mat-label>
+                    <input matInput type="text" class="form-control" formControlName="charAlias" autocomplete="off">
+                    <button mat-button *ngIf="fieldHasValue('charAlias')" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charAlias')?.setValue('')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.md="column" fxLayoutGap="40px">
+                <mat-form-field fxFlex="100">
+                    <mat-label>
+                        <mat-icon>add_a_photo</mat-icon> URL de Imagen:
+                    </mat-label>
+                    <input matInput type="url" class="form-control" formControlName="charImg" autocomplete="off">
+                    <button mat-button *ngIf="fieldHasValue('charImg')" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charImg')?.setValue('')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100">
+                    <mat-label>
+                        <mat-icon>image</mat-icon> URL de Avatar:
+                    </mat-label>
+                    <input matInput type="url" class="form-control" formControlName="charAvatar" autocomplete="off">
+                    <button mat-button *ngIf="fieldHasValue('charAvatar')" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charAvatar')?.setValue('')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.md="column" fxLayoutGap="40px">
+                    <mat-form-field appearance="fill" style="width: 800px; padding-left: 80px;">
+                        <mat-label>
+                            <mat-icon>history_edu</mat-icon> Habilidades (pulsa sobre el + para añadir una habilidad):
+                        </mat-label>
+                        <textarea matInput class="form-control" formControlName="charAbbs" autocomplete="off" width="500px" height="100px"></textarea>
+                        <button type="button" mat-button *ngIf="fieldHasValue('charAbbs')" matSuffix mat-icon-button
+                            (click)="addAbbility()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                        <button type="button" mat-button *ngIf="fieldHasValue('charAbbs')" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="characterForm.get('charAbbs')?.setValue('')">
+                        <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+
+            <div fxLayout class="margtop">
+                <button mat-raised-button color="warn" (click)="deleteCharacter()" *ngIf="!isAddCharacter()" type="button">
+                    <mat-icon>delete</mat-icon>
+                    Borrar
+                </button>
+                <span class="spacer"></span>
+                <button mat-raised-button color="primary" [routerLink]="['../..', userId, 'listcharacters']" *ngIf="!isAddCharacter()" type="button">
+                    <mat-icon>keyboard_return</mat-icon>
+                    Volver
+                </button>
+                <span class="spacer"></span>
+                <button mat-raised-button color="primary" [routerLink]="['../listcharacters']" *ngIf="isAddCharacter()" type="button">
+                    <mat-icon>keyboard_return</mat-icon>
+                    Volver
+                </button>
+                <span class="spacer"></span>
+                <button mat-raised-button color="accent" type="submit">
+                    <mat-icon *ngIf="action2 === 'Actualizar'">update</mat-icon>
+                    <mat-icon *ngIf="action2 === 'Crear'">save</mat-icon>
+                    {{action2}}
+                </button>
+            </div>
+
+        </div>
+    </form>
+
+    
+    <div fxLayout.md="column">
+        <div fxFlex="50" *ngIf="isAddCharacter()">
+            <img [src]="character | image">
+        </div>
+        <div fxFlex="50" *ngIf="charId">
+            <img [src]="character | image">
+        </div>
+    </div>
+</div>
